@@ -1,1 +1,4 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+shortest_distance	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/Ram-Dug-Peu.awk	/^function shortest_distance(pt_x, pt_y, ln_x1, ln_y1, ln_x2, ln_y2) $/;"	f	language:Awk
+square	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/Ram-Dug-Peu.awk	/^function square(number)$/;"	f	language:Awk
+two_points_dist	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/Ram-Dug-Peu.awk	/^function two_points_dist(x1, y1, x2, y2)$/;"	f	language:Awk
