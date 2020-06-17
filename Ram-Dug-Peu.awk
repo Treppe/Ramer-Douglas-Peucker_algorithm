@@ -45,6 +45,41 @@ function shortest_distance(pt_x, pt_y, ln_x1, ln_y1, ln_x2, ln_y2, len_sq)
     }
 }
 
+
+function douglas(polyline, len, eps):
+{
+    # Decites a polyline to a similar polyline with fewer points using
+    # the Ramer-Doglas-Peuker algorithm.
+    # -----------------------------------------------------------------
+    #
+    # Parameters.
+    # -----------
+    # polyline : array[index "," x|y]
+    #   An ordered list of points coordinates in polyline.
+    # len : int
+    #   A length of the given polyline / a number of points in list.
+    # eps: float
+    #   An apoximation coefficient
+
+    # Find the point with the maximum distance
+    dist_max = -1;
+    idx = -1;
+
+    for (i = 1; i < len; i++){
+        dist = shortest_ditance(polyline[i "," 0], polyline[i "," 1],
+                                polyline[0 "," 0], polyline[0 "," 1],
+                                polyline[len-1 "," 0], poly_line[len-1 "," 0]);
+        if (dist > dist_max){
+            idx = i;
+            dist_max = dist;
+        }
+    }
+
+    # If max distance is greater than epsilon, recursively simplify
+    return 0;
+}
+
+
 # Script execution starts here.
 # Create an array of points
 BEGIN {
