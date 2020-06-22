@@ -1,20 +1,18 @@
 #!/bin/bash
 EPS="$1"
 size="$(wc -l < "$2")"
-echo "$size"
 division_point="$(./get_div_point.awk "$2")"  # Number of the line containing coordinates of the furthest point from the point on the line 1
 div_NR="$(echo "$division_point" |awk '{print $1}')"
 div_x="$(echo "$division_point" | awk '{print $2}')"
 div_y="$(echo "$division_point" | awk '{print $3}')"
 
 # The first polyline in polygon
-point_list1="$(cat "$2" | awk -v div_NR="$div_NR" -v div_x="$div_x" -v div_y="$div_y" \
-    'BEGIN {print "SIZE", div_NR} NR == 1 {print "FIRST", $1, $2; print "LAST", div_x, div_y} NR > 1 && NR < div_NR {print NR-1, $0}')"
+point_list1="$(awk -v div_NR="$div_NR" -v div_x="$div_x" -v div_y="$div_y" \
+    'BEGIN {print "SIZE", div_NR} NR == 1 {print "FIRST", $1, $2; print "LAST", div_x, div_y} NR > 1 && NR < div_NR {print NR-1, $0}' "$2")"
 
 # The second polyline in polygon
-point_list1="$(cat "$2" | awk -v div_NR="$div_NR" -v div_x="$div_x" -v div_y="$div_y" -v size="$size"\
-    'BEGIN {print "SIZE", size - div_NR + 1} NR == 1 {print "FIRST", div_x, div_y; print "LAST", $1, $2} NR > div_NR && NR < size{print NR - div_NR, $0}')"
-echo "$point_list1"
+point_list2="$(awk -v div_NR="$div_NR" -v div_x="$div_x" -v div_y="$div_y" -v size="$size"\
+    'BEGIN {print "SIZE", size - div_NR + 1} NR == 1 {print "FIRST", div_x, div_y; print "LAST", $1, $2} NR > div_NR && NR < size{print NR - div_NR, $0}' "$2")"
 
 max_dist_info="$(echo "$point_list1" | ./find_max_dist.awk)"
 max_idx="$(echo "$max_dist_info" | awk '{print $1}')"
