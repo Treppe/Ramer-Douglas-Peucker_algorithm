@@ -1,7 +1,10 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
 douglas	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/Ram-Dug-Peu.awk	/^function douglas(polyline, len, eps):$/;"	f	language:Awk
+shortest_distance	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/find_max_dist.awk	/^function shortest_distance(pt_x, pt_y, ln_x1, ln_y1, ln_x2, ln_y2, len_sq) $/;"	f	language:Awk
 shortest_distance	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/Ram-Dug-Peu.awk	/^function shortest_distance(pt_x, pt_y, ln_x1, ln_y1, ln_x2, ln_y2, len_sq) $/;"	f	language:Awk
-square	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/points-to-polyline.awk	/^function square(number)$/;"	f	language:Awk
+square	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/find_max_dist.awk	/^function square(number)$/;"	f	language:Awk
+square	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/get_div_point.awk	/^function square(number)$/;"	f	language:Awk
 square	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/Ram-Dug-Peu.awk	/^function square(number)$/;"	f	language:Awk
-two_points_sqr_distance	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/points-to-polyline.awk	/^function two_points_sqr_distance(x1, y1, x2, y2)$/;"	f	language:Awk
+two_points_sqr_distance	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/find_max_dist.awk	/^function two_points_sqr_distance(x1, y1, x2, y2)$/;"	f	language:Awk
+two_points_sqr_distance	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/get_div_point.awk	/^function two_points_sqr_distance(x1, y1, x2, y2)$/;"	f	language:Awk
 two_points_sqr_distance	/home/egor/Google Drive/Programming/PROJECTS/Ramer–Douglas–Peucker_algorithm/test_scripts/dividing_scripts/Ram-Dug-Peu.awk	/^function two_points_sqr_distance(x1, y1, x2, y2)$/;"	f	language:Awk
