@@ -18,6 +18,10 @@ BEGIN {
     # Initialize starting maximal distance variables for the last point finding
     record_dist = 0;   # This variable will contain a distance to the last point
     last_line = 0;      # An index of the last post in RDP algorithm
+    size = 0;
+}
+{
+    size++
 }
 
 NR == 1 {
@@ -46,7 +50,7 @@ NR > 1 {
 } 
 
 END {
-    print last_line, last_x, last_y;
+    print last_line, last_x, last_y, size;
 }
 
 
@@ -71,5 +75,6 @@ END {
 #        print_idx++;       
 #    }
 # }
+
 
 
