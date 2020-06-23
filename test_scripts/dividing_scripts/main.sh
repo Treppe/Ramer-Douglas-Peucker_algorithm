@@ -24,13 +24,13 @@ if [[ $max_dist > $EPS ]]; then
     # Results where max is the last point
     point_sublist1="$(echo "$point_list1" | \
         awk -v max_x="$max_x" -v max_y="$max_y" -v idx="$max_idx" \
-        '{if (NR > 3 && NR <= idx) {print $0} else if (NR > idx){exit}}')" 
-    echo "$point_sublist1"
+        'NR > 3 {if (NR <= idx) {print $0} else {exit}}')" 
 
     # Results where max is the first point 
     point_sublist2="$(echo "$point_list1" |  \
         awk -v max_x="$max_x" -v max_y="$max_y" -v idx="$max_idx" \
-        '{if (NR == 1) {print $1, $2 - idx + 1} else if (NR == 3) {print $0} else if (NR == 2) {print "FIRST", max_x, max_y} else if (NR > idx + 3) {print $2, $3; new_idx++}}')" 
+        'NR >= idx {print $0}')"
+    echo "$point_sublist2"
 
 fi   
 
