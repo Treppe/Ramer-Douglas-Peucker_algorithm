@@ -75,7 +75,7 @@ NR == 3 {
 
 NR > 3 {
     # Find the point with the maximum distance in first time
-    idx = NR - 4;
+    idx = NR;
     x = $1;
     y = $2;
 
