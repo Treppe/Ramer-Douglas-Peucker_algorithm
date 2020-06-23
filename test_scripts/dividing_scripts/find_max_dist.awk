@@ -57,19 +57,12 @@ BEGIN {
 
     max_dist = -1;
     max_idx = -1;
-
-    size = 0; 
 }
 
 
 NR == 2 {
     first_x = $2;
     first_y = $3;
-    
-    points_arr["first" "," 0] = $2;
-    points_arr["first" "," 1] = $3;
-
-    size++;
 }
 
 
@@ -77,19 +70,14 @@ NR == 3 {
     last_x = $2;
     last_y = $3;
 
-    points_arr["last" "," 0] = $2;
-    points_arr["last" "," 1] = $3;
-
     len_sq = two_points_sqr_distance(first_x, first_y, last_x, last_y);
-
-    size++;
 }
 
 NR > 3 {
     # Find the point with the maximum distance in first time
-    idx = $1;
-    x = $2;
-    y = $3;
+    idx = NR - 4;
+    x = $1;
+    y = $2;
 
     dist = shortest_distance(x, y, first_x, first_y, last_x, last_y, len_sq);
 
@@ -101,8 +89,6 @@ NR > 3 {
     # Put point into array
     points_arr[idx "," 0] = x;
     points_arr[idx "," 1] = y;
-
-    size++;
 }
 
 

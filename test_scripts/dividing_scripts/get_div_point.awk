@@ -16,8 +16,8 @@ function two_points_sqr_distance(x1, y1, x2, y2)
 
 BEGIN {
     # Initialize starting maximal distance variables for the last point finding
-    record_dist = -1;   # This variable will contain a distance to the last point
-    last_line = -1;      # An index of the last post in RDP algorithm
+    record_dist = 0;   # This variable will contain a distance to the last point
+    last_line = 0;      # An index of the last post in RDP algorithm
 }
 
 NR == 1 {
