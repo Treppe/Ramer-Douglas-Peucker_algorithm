@@ -1,4 +1,0 @@
-#!/usr/bin/awk -f
-{
-    print NR-1, $0;
-}
