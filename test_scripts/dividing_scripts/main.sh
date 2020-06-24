@@ -13,7 +13,6 @@ douglas_perker(){
 
     max_dist_info="$(echo "$point_list" | \
         awk -v FIRST_X="$first_x" -v FIRST_Y="$first_y" -v LAST_X="$last_x" -v LAST_Y="$last_y" -f ./find_max_dist.awk)" # DON'T CHANGE VARIABLES NAMES
-    echo "$max_dist_info"
 	max_NR="$(echo "$max_dist_info" | awk '{print $1; exit}')"
 	max_dist="$(echo "$max_dist_info" | awk '{print $2; exit}')"
 	max_x="$(echo "$max_dist_info" | awk '{print $3; exit}')"
@@ -21,9 +20,11 @@ douglas_perker(){
 
 	if [[ $max_dist > $EPS ]]; then
 	    # Results where max is the last point
-	point_sublist1="$(echo "$point_list" | \
-		awk -v max_x="$max_x" -v max_y="$max_y" -v idx="$max_NR" \
-		'NR > 3 {if (NR <= idx) {print $0} else {exit}} NR == 2 {print "SIZE", idx - 3; print "FIRST", $2, $3; print "LAST", max_x, max_y}')" 
+	    point_sublist1="$(echo "$point_list" | \
+            awk -v max_NR="$max_NR" '{if (NR <= max_NR) {print $0} else {exit}}')" 
+        size1="$max_NR"
+        first1="$(echo "$point_sublist1" | awk 'NR == 1 {print $0; exit}')"
+        last1="$max_x $max_y"
 
    # rec_results1="$(douglas_perker "$EPS" "$point_sublist1")"
 
