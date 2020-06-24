@@ -39,20 +39,18 @@ main(){
 	size="$(echo "$division_point" | awk '{print $4; exit}')"
 
 	# The first polyline in polygon
-	point_list1="$(echo "$2" | awk -v div_NR="$div_NR" -v div_x="$div_x" -v div_y="$div_y" \
+	point_list1="$(echo "$2" | awk -v div_NR="$div_NR" \
 	    '{if (NR <= div_NR) {print $0} else {exit}}')"
     size1="$div_NR"
     first1="$(echo "$2" | awk 'NR == 1 {print $0; exit}')"
     last1="$div_x $div_y"
-    echo "$point_list1"
-    echo "$size1"
-    echo "$first1"
-    echo "$last1"
 
 	# The second polyline in polygon
 	point_list2="$(echo "$2" | awk -v div_NR="$div_NR" -v div_x="$div_x" -v div_y="$div_y" -v size="$size"\
-	    'BEGIN {print "SIZE", size - div_NR + 1} {if (NR > div_NR && NR < size) {print $0} else if (NR == 1) {print "FIRST", div_x, div_y; print "LAST", $1, $2; print div_x, div_y; last_xy = $0} else {next}} END{print last_xy}')"
-
+        'NR >= div_NR {print $0} NR == 1 {last_xy = $0} END {print last_xy}')" 
+    size2=$(( size - div_NR + 2))
+    first2="$div_x $div_y"
+    last2="$(echo "$2" | awk 'NR == 1 {print $0; exit}')"
 }
 
 polygon="$(cat "$2")"
