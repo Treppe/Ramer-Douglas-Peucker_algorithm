@@ -2,9 +2,8 @@
 douglas_perker(){
     point_list=$1
     EPS=$2
-    size=$3
-    first=$4
-    last=$5
+    first=$3
+    last=$4
 
     first_x="$(echo "$first" | awk '{print $1; exit}')"
     first_y="$(echo "$first" | awk '{print $2; exit}')"
@@ -22,24 +21,26 @@ douglas_perker(){
 	    # Results where max is the last point
 	    point_sublist1="$(echo "$point_list" | \
             awk -v max_NR="$max_NR" '{if (NR <= max_NR) {print $0} else {exit}}')" 
-        size1="$max_NR"
-        first1="$(echo "$point_sublist1" | awk 'NR == 1 {print $0; exit}')"
+        first1="$first"
         last1="$max_x $max_y"
 
-   # rec_results1="$(douglas_perker "$EPS" "$point_sublist1")"
+        rec_results1="$(douglas_perker "$point_sublist1" "$EPS" "$first1" "$last1")"
 
 	    # Results where max is the first point 
-	point_sublist2="$(echo "$point_list" |  \
-		awk -v max_x="$max_x" -v max_y="$max_y" -v idx="$max_NR" \
-		'NR >= idx {print $0} NR == 1 {size = $2 - idx + 4} NR == 3 {print "SIZE", size; print "FIRST", max_x, max_y; print "LAST", $2, $3}')"
-
-        # rec_results2="$(douglas_perker "$EPS" "$point_sublist2")"
-	    # result_list="$rec_results1
-# $rec_results2"
+    	point_sublist2="$(echo "$point_list" |  \
+            awk -v max_NR="$max_NR" \
+		    'NR >= max_NR {print $0}')"
+        first2="$max_x $max_y"
+        last2="$last"
+        
+        rec_results2="$(douglas_perker "$point_sublist2" "$EPS" "$first2" "$last2")"
+	    result_list="$rec_results1
+$rec_results2"
 	else
-        result_list="$(echo "$point_list" | awk '{if (NR > 3) {exit} else if (NR == 1) {print "SIZE", 2} else if (NR == 2) {print $0; first_x = $2; first_y = $3} else if (NR == 3) {print $0; print first_x, first_y; print $2, $3}}')"
+        result_list="$first
+$last"
 	fi   
-#	echo "$result_list"
+	echo "$result_list"
 }
 
 main(){
@@ -48,23 +49,21 @@ main(){
 	div_NR="$(echo "$division_point" |awk '{print $1; exit}')"
 	div_x="$(echo "$division_point" | awk '{print $2; exit}')"
 	div_y="$(echo "$division_point" | awk '{print $3; exit}')"
-	size="$(echo "$division_point" | awk '{print $4; exit}')"
 
 	# The first polyline in polygon
 	point_list1="$(echo "$2" | awk -v div_NR="$div_NR" \
 	    '{if (NR <= div_NR) {print $0} else {exit}}')"
-    size1="$div_NR"
     first1="$(echo "$2" | awk 'NR == 1 {print $0; exit}')"
     last1="$div_x $div_y"
 
 	# The second polyline in polygon
-	point_list2="$(echo "$2" | awk -v div_NR="$div_NR" -v div_x="$div_x" -v div_y="$div_y" -v size="$size"\
+	point_list2="$(echo "$2" | awk -v div_NR="$div_NR" \
         'NR >= div_NR {print $0} NR == 1 {last_xy = $0} END {print last_xy}')" 
-    size2=$(( size - div_NR + 2))
     first2="$div_x $div_y"
     last2="$(echo "$2" | awk 'NR == 1 {print $0; exit}')"
 
-    douglas_perker "$point_list1" "$EPS" "$size1" "$first1" "$last1"
+    douglas_perker "$point_list1" "$EPS" "$first1" "$last1"
+    douglas_perker "$point_list2" "$EPS" "$first2" "$last2"
 }
 
 polygon="$(cat "$2")"
