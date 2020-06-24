@@ -1,4 +1,4 @@
-#!/usr/bin/awk -f
+#!/usr/bin/awk
 # The Ramer-Douglas-Peuker algorithm.
 # Decimates a curve composed of line segments to a similar curve with fewer points.
 
@@ -51,47 +51,29 @@ function shortest_distance(pt_x, pt_y, ln_x1, ln_y1, ln_x2, ln_y2, len_sq)
 
 # Script execution starts here
 BEGIN {
-    # Store a constant parameter epsilon
-    EPS = ARGV[1];
-    delete ARGV[1];
+    LEN_SQ = two_points_sqr_distance(FIRST_X, FIRST_Y, LAST_X, LAST_Y)
 
-    max_dist = -1;
-    max_idx = -1;
+    max_NR = 0;
+    max_dist = -1;    
+    far_x = "None";
+    far_y = "None";
 }
 
-
-NR == 2 {
-    first_x = $2;
-    first_y = $3;
-}
-
-
-NR == 3 {
-    last_x = $2;
-    last_y = $3;
-
-    len_sq = two_points_sqr_distance(first_x, first_y, last_x, last_y);
-}
-
-NR > 3 {
-    # Find the point with the maximum distance in first time
-    idx = NR;
+{
     x = $1;
     y = $2;
 
-    dist = shortest_distance(x, y, first_x, first_y, last_x, last_y, len_sq);
+    dist = shortest_distance(x, y, FIRST_X, FIRST_Y, LAST_X, LAST_Y, LEN_SQ);
 
     if (dist > max_dist) {
-        max_idx = idx;
+        max_NR = NR;
         max_dist = dist;
+        far_x = x;
+        far_y = y;
     }
-    
-    # Put point into array
-    points_arr[idx "," 0] = x;
-    points_arr[idx "," 1] = y;
 }
 
 
 END { 
-    print max_idx, max_dist, points_arr[max_idx "," 0], points_arr[max_idx "," 1]; 
+    print max_NR, max_dist,  far_x, far_y; 
 }
