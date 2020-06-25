@@ -23,7 +23,6 @@ douglas_perker(){
             awk -v max_NR="$max_NR" '{if (NR <= max_NR) {print $0} else {exit}}')" 
         first1="$first"
         last1="$max_x $max_y"
-
         rec_results1="$(douglas_perker "$point_sublist1" "$EPS" "$first1" "$last1")"
 
 	    # Results where max is the first point 
@@ -32,8 +31,12 @@ douglas_perker(){
 		    'NR >= max_NR {print $0}')"
         first2="$max_x $max_y"
         last2="$last"
-        
         rec_results2="$(douglas_perker "$point_sublist2" "$EPS" "$first2" "$last2")"
+        
+        # Delete max from one of the lists before connecting to avoid duplicates in result_list
+        rec_results2="$(echo "$rec_results2" | awk 'NR>1')"
+
+        # Conectate recursive results in one list
 	    result_list="$rec_results1
 $rec_results2"
 	else
@@ -62,8 +65,10 @@ main(){
     first2="$div_x $div_y"
     last2="$(echo "$2" | awk 'NR == 1 {print $0; exit}')"
 
-    douglas_perker "$point_list1" "$EPS" "$first1" "$last1"
-    douglas_perker "$point_list2" "$EPS" "$first2" "$last2"
+    results1="$(douglas_perker "$point_list1" "$EPS" "$first1" "$last1")"
+    results2="$(douglas_perker "$point_list2" "$EPS" "$first2" "$last2" | awk 'NR > 2 { print prev } { prev = $0 }')"
+    echo "$results1
+$results2"
 }
 
 polygon="$(cat "$2")"

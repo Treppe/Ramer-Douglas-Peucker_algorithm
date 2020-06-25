@@ -18,10 +18,6 @@ BEGIN {
     # Initialize starting maximal distance variables for the last point finding
     record_dist = 0;   # This variable will contain a distance to the last point
     last_line = 0;      # An index of the last post in RDP algorithm
-    size = 0;
-}
-{
-    size++
 }
 
 NR == 1 {
@@ -50,31 +46,7 @@ NR > 1 {
 } 
 
 END {
-    print last_line, last_x, last_y, size;
+    print "div_NR="last_line; 
+    print "div_x="last_x;
+    print "div_y="last_y;
 }
-
-
-# END {
-    # Print the first and the last point
-#    print "SIZE", size;
-#    print "FIRST", points_arr[0];
-#    print "LAST", points_arr[last_idx]; 
-    # Print 2 polylines's points betwwen FIRST and LAST point
-#    print_idx = 1;
-#    new_polyline_flag = 1;
-#    for (i = 1; i < size; i++) {
-#        if (i != last_idx){
-#            print print_idx, points_arr[i];
-#        }
-#        else {
-#            print "NEW POLYLINE COORDS";
-#            new_polyline_flag = 0;
-#            print_idx = 0;
-#        }
-#
-#        print_idx++;       
-#    }
-# }
-
-
-
