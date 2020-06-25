@@ -75,5 +75,8 @@ BEGIN {
 
 
 END { 
-    print max_NR, sqrt(max_dist),  far_x, far_y; 
+    print "max_NR="max_NR; 
+    print "max_dist="sqrt(max_dist);  
+    print "max_x="far_x; 
+    print "max_y="far_y; 
 }
